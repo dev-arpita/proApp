@@ -8,5 +8,14 @@ const appSettings = {
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
 const shoppingListInDB = ref(database, "posts")
+
 const postListEl = document.getElementById("post-list")
 const postEl = document.createElement("li")
+const inputEl = document.getElementById("input-area")
+const actionBtn = document.getElementById("btn")
+
+actionBtn.addEventListener("click", renderPost)
+function renderPost(){
+    postEl.innerHTML = `<p>${inputEl.value}</p>`
+    postListEl.append(postEl)
+}

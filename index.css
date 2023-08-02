@@ -62,3 +62,16 @@ h2{
   font-size: 20px;
   font-weight: 700;
 }
+ul {
+  list-style-type: none;
+  text-align: left;
+  background: #FFF;
+  color: #1B1924;
+  padding-left: 0;
+} 
+li {
+  padding: 10px 16px;
+}
+li p {
+  margin: 0;
+}
