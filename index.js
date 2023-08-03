@@ -10,27 +10,35 @@ const database = getDatabase(app)
 const postListInDB = ref(database, "posts")
 
 const postListEl = document.getElementById("post-list")
-const postEl = document.createElement("li")
 const inputEl = document.getElementById("input-area")
 const actionBtn = document.getElementById("btn")
 
 actionBtn.addEventListener("click", function(){
-    clearInputEL()
     const inputValue = inputEl.value
     push(postListInDB, inputValue)
-    renderPost(inputValue)
+    clearInputEL()
 })
-
-function clearInputEL(){
-     postEl.innerHTML = ""
-}
-
-function renderPost(inputVal){
-    postEl.innerHTML = `<p>${inputVal}</p>`
-    postListEl.append(postEl)
-}
 
 onValue(postListInDB, function(snapshot){
     const postArray = Object.entries(snapshot.val())
     console.log(postArray)
+    clearInputEL()
+    for(let i = 0; i < postArray.length; i++){
+        let currentPost = postArray[i]
+        let postId = postArray[0]
+        let postMsg = postArray[1]
+        renderPost(currentPost)
+    }
 })
+
+function clearInputEL(){
+    postListEl.innerHTML = ""
+}
+
+function renderPost(inputVal){
+    let inputValId = inputVal[0]
+    let inputValName = inputVal[1]
+    const postEl = document.createElement("li")
+    postEl.innerHTML = `<p>${inputValName}</p>`
+    postListEl.append(postEl)
+}
