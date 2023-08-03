@@ -7,15 +7,30 @@ const appSettings = {
 
 const app = initializeApp(appSettings)
 const database = getDatabase(app)
-const shoppingListInDB = ref(database, "posts")
+const postListInDB = ref(database, "posts")
 
 const postListEl = document.getElementById("post-list")
 const postEl = document.createElement("li")
 const inputEl = document.getElementById("input-area")
 const actionBtn = document.getElementById("btn")
 
-actionBtn.addEventListener("click", renderPost)
-function renderPost(){
-    postEl.innerHTML = `<p>${inputEl.value}</p>`
+actionBtn.addEventListener("click", function(){
+    clearInputEL()
+    const inputValue = inputEl.value
+    push(postListInDB, inputValue)
+    renderPost(inputValue)
+})
+
+function clearInputEL(){
+     postEl.innerHTML = ""
+}
+
+function renderPost(inputVal){
+    postEl.innerHTML = `<p>${inputVal}</p>`
     postListEl.append(postEl)
 }
+
+onValue(postListInDB, function(snapshot){
+    const postArray = Object.entries(snapshot.val())
+    console.log(postArray)
+})
